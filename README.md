@@ -24,23 +24,17 @@ Acting as a Junior Business Intelligence Analyst, this project transforms raw tr
 | Power Query | In-tool data shaping |
 
 ## Repository Contents
-
-```
-├── data/
-│   ├── Sample - Superstore.csv          # Raw dataset
-│   └── Superstore_Cleaned.csv           # Cleaned & transformed dataset
-├── notebooks/
-│   └── Superstore_Data_Cleaning.ipynb   # Data cleaning & transformation pipeline
-├── powerbi/
-│   ├── Analyst_Lab_Dashboard.pbix       # Power BI project file
-│   └── AnalystLab_Africa_PowerBI_Theme.json  # Custom Power BI color theme
-├── reports/
-│   ├── Business_Intelligence_Overview_Report.docx
-│   └── Business_Insights_and_Recommendations.docx
-├── exports/
-│   └── Dashboard_Export.pdf             # Static dashboard export
-└── README.md
-```
+reports/
+├── Business_Intelligence_Overview_Report.docx        (Week 2)
+├── Business_Insights_and_Recommendations.docx        (Week 2)
+├── Project_Continuity_Summary.docx                    ← NEW
+├── DAX_Measures_Documentation.docx                     ← NEW
+├── Business_Insights_and_Recommendations_Week3.docx   ← NEW
+exports/
+├── Dashboard_Export_Week2.pdf                          (rename old one)
+├── Dashboard_Export_Week3.pdf                          ← NEW, once you export it
+powerbi/
+├── Analyst_Lab_Dashboard.pbix                          (overwrite with your updated version)
 
 ## Data Preparation
 

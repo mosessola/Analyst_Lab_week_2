@@ -1,79 +1,98 @@
-# Analyst_Lab_week_2_&_3
-Power BI executive dashboard analyzing retail sales, profitability, and regional performance using the Superstore dataset. Built as part of the AnalystLab Africa Data Analytics Internship (Week 2: Business Analytics Case Study).
-# Superstore Retail BI Dashboard
+# HealthConnect Clinic — Data Analytics Track
 
-An executive Power BI dashboard built for a fictional national retail company, analyzing sales performance, profitability, customer behavior, and regional trends. Built as part of the **AnalystLab Africa Data Analytics Internship Programme — Week 2: Business Analytics Case Study**.
+**Programme:** AnalystLab Africa Experience Lab
+**Assignment:** Week 4 — HealthConnect Project Kickoff & Problem Understanding
+**Track:** Data Analytics
+**Status:** Week 4 deliverables complete
 
-## Business Scenario
+## What this project is
 
-Acting as a Junior Business Intelligence Analyst, this project transforms raw transactional retail data into an interactive dashboard that helps management monitor performance and make data-driven strategic decisions — covering overall sales health, regional and segment performance, product profitability, and time trends.
+HealthConnect Clinic is a fictional outpatient healthcare provider used across all AnalystLab
+Africa tracks as a shared case study, kicking off at **Week 4** of the internship (Weeks 1–3 were
+separate, track-specific skill-building and are not repeated here). The central project question,
+per the official Week 4 brief, is:
 
-## Dataset
+> *"How can HealthConnect Clinic use data and AI to reduce missed appointments and improve the
+> patient support experience?"*
 
-- **Source:** [Superstore Sales Dataset](https://www.kaggle.com/datasets/vivek468/superstore-dataset-final) (Kaggle)
-- **Size:** 9,994 orders, 28 columns after cleaning
-- **Period covered:** January 2014 – December 2017
-- **Fields:** Order/ship dates, customer segment, region/state/city, product category & sub-category, sales, profit, discount, quantity
+As the **Data Analytics track**, our Week 4 responsibility is to understand the appointment data
+and identify how it can be used to investigate appointment attendance and no-show patterns —
+laying groundwork the Data Science, ML Engineering, and Generative AI tracks build on in later
+weeks. This is discovery and planning work: business questions, KPI identification (not yet
+calculation), a data-quality assessment, and an initial analysis approach — not a finished model
+or dashboard.
 
-## Tech Stack
+The `HealthConnect_Clinic_Knowledge_Base.docx` resource is also part of the shared project
+resources, but its primary users are the **Generative AI track** (Healthcare Information
+Assistant design). It's kept here for cross-track reference only and is not used in this
+Data Analytics output.
 
-| Tool | Purpose |
+## Folder structure
+
+```
+HealthConnect_Project/
+├── README.md                                       This file
+├── data/
+│   ├── HealthConnect_Appointment_Data.csv                Raw dataset (5,000 rows x 18 cols) — unmodified
+│   └── HealthConnect_Data_Dictionary.xlsx                Field definitions — unmodified
+├── notebooks/
+│   ├── HealthConnect_Week4_EDA.ipynb                     Executed Week 4 exploratory analysis
+├── docs/
+│   ├── HealthConnect_Week4_Analysis_Document.docx        Main Week 4 output: brief, role, data review,                                                          approach, assumptions/limitations/risks
+│   ├── HealthConnect_Week4_Project_Summary.docx          Required Part 4 submission item: concise summary,
+│   │                                                       does not repeat the analysis document
+│   └── HealthConnect_Clinic_Knowledge_Base.docx          Generative AI track resource (reference only)
+
+```
+
+## Where to start
+
+1. **`docs/HealthConnect_Week4_Project_Summary.docx`** — the short version: problem, resources,
+   key observations, approach, considerations, and proposed Week 5 focus.
+2. **`docs/HealthConnect_Week4_Analysis_Document.docx`** — the full Week 4 output: project brief,
+   analyst role, data dictionary review, dataset inspection, full data-quality assessment,
+   important-variable identification, 5 business questions, 5 KPIs (each explicitly linked to a
+   business question, per the brief's requirement), initial analysis approach, and documented
+   assumptions/limitations/risks.
+3. **`notebooks/HealthConnect_Week4_EDA.ipynb`** — the executed code behind the analysis document:
+   dataset inspection, data-quality checks, and the exploratory rate breakdowns used to identify
+   important variables and justify the KPIs.
+
+## Headline findings (Week 4)
+
+- **48.5%** of appointments in the dataset end in **No-Show**, 46.3% Attended, 5.3% Cancelled.
+- **Booking lead time** is the strongest signal found: no-show rate rises from **28%**
+  (booked 0–7 days ahead) to **68%** (booked 46–60 days ahead).
+- **Prior no-show history** is similarly strong: patients with 3+ previous no-shows show a
+  **68–100%** no-show rate on their current appointment, vs. 44% for patients with no history.
+- **Reminders** show a modest effect (47.4% no-show rate when sent vs. 51.4% when not), with
+  **SMS** the best-performing channel among those tested.
+- **Data quality is high**: no duplicate rows, all internal consistency rules hold. The only
+  missingness is `reminder_channel` (fully explained by `reminder_sent = No`) and small gaps
+  (<2%) in `distance_to_clinic_km` and `waiting_time_minutes`.
+
+## KPIs identified (not yet calculated, per brief scope)
+
+| KPI | Linked question(s) |
 |---|---|
-| Python (pandas) | Data cleaning & transformation, run in Jupyter Notebook |
-| Power BI | Dashboard development, DAX measures, interactive visuals |
-| Power Query | In-tool data shaping |
+| No-Show Rate | Q1 |
+| Attendance Rate | Q1 |
+| Cancellation Rate | Q1, Q3 |
+| Reminder Effectiveness | Q4 |
+| Repeat No-Show Rate | Q2, Q5 |
 
-## Repository Contents
-reports/
-├── Business_Intelligence_Overview_Report.docx        (Week 2)
-├── Business_Insights_and_Recommendations.docx        (Week 2)
-├── Project_Continuity_Summary.docx                    ← NEW
-├── DAX_Measures_Documentation.docx                     ← NEW
-├── Business_Insights_and_Recommendations_Week3.docx   ← NEW
-exports/
-├── Dashboard_Export_Week2.pdf                          (rename old one)
-├── Dashboard_Export_Week3.pdf                          ← NEW, once you export it
-powerbi/
-├── Analyst_Lab_Dashboard.pbix                          (overwrite with your updated version)
+Full definitions and justification in the Analysis Document, Section 10.
 
-## Data Preparation
+## Known open items going into Week 5
 
-Using pandas, the raw dataset was:
-- Inspected for structure, data types, and completeness
-- Checked for missing values and duplicate records
-- Corrected for proper data types (dates parsed, postal codes kept as strings)
-- Enriched with calculated columns: **Profit Margin**, **Shipping Duration**, **Order Year/Month**, and a loss-flag (**Is Loss**) for risk analysis
+- Move from associative findings (Week 4) to significance-tested findings (chi-square /
+  logistic regression).
+- Decide and document a missing-data handling rule for `distance_to_clinic_km` and
+  `waiting_time_minutes` before any calculation or modelling uses them.
+- Confirm the 737 Sunday-dated appointments against real clinic operating-hours assumptions
+  before using them in any hours-based segmentation.
+- First KPI calculation pass, now that identification and justification are complete.
+- Coordinate with the Data Science track on shared variable definitions for the no-show
+  prediction model.
 
-Full pipeline: [`notebooks/Superstore_Data_Cleaning.ipynb`](notebooks/Superstore_Data_Cleaning.ipynb)
 
-## Dashboard
-
-**KPI Cards:** Total Sales · Total Profit · Total Orders · Average Sales · Profit Margin
-
-**Visuals:** Sales & Profit trend over time · Sales by Region (map + bar) · Sales by Segment (donut) · Sales/Profit by Category · Profit by Sub-Category · Top Products by Profit (table) · Regional/Category/Date slicers
-
-## Key Findings
-
-- **Technology (17.4%) and Office Supplies (17.0%) margins** far outperform **Furniture (2.5%)**, despite similar revenue.
-- **Tables (–8.6% margin) and Bookcases (–3.0% margin)** are net loss-making sub-categories.
-- **West (14.9%) and East (13.5%) regions** lead on profitability; **Central (7.9%)** lags significantly.
-- Discounts above 30% are collectively loss-making — **1,166 such orders lost a combined –$125,007**.
-- **Home Office (14.0% margin)** is the most profitable segment per dollar sold, ahead of Corporate and Consumer.
-
-Full insights, risks, opportunities, and recommendations: [`reports/Business_Insights_and_Recommendations.docx`](reports/Business_Insights_and_Recommendations.docx)
-
-## Recommendations (Summary)
-
-1. Introduce a minimum-margin discount cap on low-margin categories.
-2. Review pricing and supplier costs for Tables and Bookcases.
-3. Reallocate marketing/inventory investment toward Technology and Office Supplies.
-4. Launch a Central-region and underperforming-state improvement plan.
-5. Build a targeted Home Office growth campaign.
-
-## Author
-
-**Moses Oluwatosin**
-Junior Business Intelligence Analyst — AnalystLab Africa Data Analytics Internship Programme
-
----
-*This project is part of the AnalystLab Africa Data Analytics Internship Programme (Week 2 Assignment). #AnalystLabAfrica*

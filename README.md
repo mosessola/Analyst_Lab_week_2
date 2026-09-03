@@ -1,98 +1,82 @@
 # HealthConnect Clinic — Data Analytics Track
 
 **Programme:** AnalystLab Africa Experience Lab
-**Assignment:** Week 4 — HealthConnect Project Kickoff & Problem Understanding
 **Track:** Data Analytics
-**Status:** Week 4 deliverables complete
+**Status:** Week 4 (Problem Understanding) and Week 5 (Analysis & KPI Development) complete
 
 ## What this project is
 
 HealthConnect Clinic is a fictional outpatient healthcare provider used across all AnalystLab
-Africa tracks as a shared case study, kicking off at **Week 4** of the internship (Weeks 1–3 were
-separate, track-specific skill-building and are not repeated here). The central project question,
-per the official Week 4 brief, is:
+Africa tracks as a shared case study. The central project question, per the official brief, is:
 
 > *"How can HealthConnect Clinic use data and AI to reduce missed appointments and improve the
 > patient support experience?"*
 
-As the **Data Analytics track**, our Week 4 responsibility is to understand the appointment data
-and identify how it can be used to investigate appointment attendance and no-show patterns —
-laying groundwork the Data Science, ML Engineering, and Generative AI tracks build on in later
-weeks. This is discovery and planning work: business questions, KPI identification (not yet
-calculation), a data-quality assessment, and an initial analysis approach — not a finished model
-or dashboard.
+As the **Data Analytics track**, Week 4 covered problem understanding, data-quality assessment,
+and identifying business questions and candidate KPIs. **Week 5 moved into actual analysis** —
+calculating those KPIs, deepening the exploratory analysis, building a visual dashboard, and
+producing business insights, building directly on the Week 4 foundation (not restarting).
 
-The `HealthConnect_Clinic_Knowledge_Base.docx` resource is also part of the shared project
-resources, but its primary users are the **Generative AI track** (Healthcare Information
-Assistant design). It's kept here for cross-track reference only and is not used in this
-Data Analytics output.
+The `HealthConnect_Clinic_Knowledge_Base.docx` resource is part of the shared project resources,
+but its primary users are the **Generative AI track**. It's kept here for cross-track reference
+only and is not used in this Data Analytics output.
 
 ## Folder structure
 
 ```
 HealthConnect_Project/
-├── README.md                                       This file
+├── README.md
 ├── data/
-│   ├── HealthConnect_Appointment_Data.csv                Raw dataset (5,000 rows x 18 cols) — unmodified
-│   └── HealthConnect_Data_Dictionary.xlsx                Field definitions — unmodified
+│   ├── HealthConnect_Appointment_Data.csv              Raw dataset (5,000 rows x 18 cols) — unmodified
+│   └── HealthConnect_Data_Dictionary.xlsx               Field definitions — unmodified
 ├── notebooks/
-│   ├── HealthConnect_Week4_EDA.ipynb                     Executed Week 4 exploratory analysis
+│   ├── HealthConnect_Week5_Analytics.ipynb              Week 5: deepened EDA, KPI calculations, dashboard
+│   ├── build_notebook.py / build_week5_notebook.py      Scripts that generate the notebooks (reproducibility)
 ├── docs/
-│   ├── HealthConnect_Week4_Analysis_Document.docx        Main Week 4 output: brief, role, data review,                                                          approach, assumptions/limitations/risks
-│   ├── HealthConnect_Week4_Project_Summary.docx          Required Part 4 submission item: concise summary,
-│   │                                                       does not repeat the analysis document
-│   └── HealthConnect_Clinic_Knowledge_Base.docx          Generative AI track resource (reference only)
-
+│   ├── HealthConnect_Week4_Analysis_Document.docx/.pdf  Week 4 output: brief, role, data review, data quality,
+│   │                                                      business questions, KPIs identified+linked, approach,
+│   │                                                      assumptions/limitations/risks
+│   ├── HealthConnect_Week4_Project_Summary.docx/.pdf    Week 4 Part 4 submission summary
+│   ├── HealthConnect_Week5_Analytics_Report.docx/.pdf   Week 5 output: Week 4 recap, data prep confirmation,
+│   │                                                      deepened EDA, 5 calculated KPIs, dashboard, 6 business
+│   │                                                      insights, cross-track note, updated risk register
+│   ├── HealthConnect_Week5_Project_Summary.docx/.pdf    Week 5 Part 4 submission summary 
+├── outputs/
+│   ├── waiting_distance_by_outcome.png                  Week 5 chart
+│   └── week5_kpi_dashboard.png                          Week 5 4-panel dashboard
 ```
 
 ## Where to start
 
-1. **`docs/HealthConnect_Week4_Project_Summary.docx`** — the short version: problem, resources,
-   key observations, approach, considerations, and proposed Week 5 focus.
-2. **`docs/HealthConnect_Week4_Analysis_Document.docx`** — the full Week 4 output: project brief,
-   analyst role, data dictionary review, dataset inspection, full data-quality assessment,
-   important-variable identification, 5 business questions, 5 KPIs (each explicitly linked to a
-   business question, per the brief's requirement), initial analysis approach, and documented
-   assumptions/limitations/risks.
-3. **`notebooks/HealthConnect_Week4_EDA.ipynb`** — the executed code behind the analysis document:
-   dataset inspection, data-quality checks, and the exploratory rate breakdowns used to identify
-   important variables and justify the KPIs.
+- **This week (Week 5):** start with `docs/HealthConnect_Week5_Project_Summary.pdf` (short
+  version), then `docs/HealthConnect_Week5_Analytics_Report.pdf` (full report with KPI
+  calculations and dashboard), then `notebooks/HealthConnect_Week5_Analytics.ipynb` for the code.
+- **Prior week (Week 4):** `docs/HealthConnect_Week4_Analysis_Document.pdf` and
+  `docs/HealthConnect_Week4_Project_Summary.pdf`.
 
-## Headline findings (Week 4)
+## Week 5 headline results
 
-- **48.5%** of appointments in the dataset end in **No-Show**, 46.3% Attended, 5.3% Cancelled.
-- **Booking lead time** is the strongest signal found: no-show rate rises from **28%**
-  (booked 0–7 days ahead) to **68%** (booked 46–60 days ahead).
-- **Prior no-show history** is similarly strong: patients with 3+ previous no-shows show a
-  **68–100%** no-show rate on their current appointment, vs. 44% for patients with no history.
-- **Reminders** show a modest effect (47.4% no-show rate when sent vs. 51.4% when not), with
-  **SMS** the best-performing channel among those tested.
-- **Data quality is high**: no duplicate rows, all internal consistency rules hold. The only
-  missingness is `reminder_channel` (fully explained by `reminder_sent = No`) and small gaps
-  (<2%) in `distance_to_clinic_km` and `waiting_time_minutes`.
+**KPIs calculated:**
 
-## KPIs identified (not yet calculated, per brief scope)
+| KPI | Linked question(s) | Value |
+|---|---|---|
+| No-Show Rate | Q1 | 48.5% |
+| Attendance Rate | Q1 | 46.3% |
+| Cancellation Rate | Q1, Q3 | 5.3% |
+| Reminder Effectiveness | Q4 | 47.4% (sent) vs 51.4% (not sent); SMS best channel |
+| Repeat No-Show Rate | Q2, Q5 | 10.6% of appointments from patients w/ ≥2 prior no-shows; 61.0% no-show rate within that segment |
 
-| KPI | Linked question(s) |
-|---|---|
-| No-Show Rate | Q1 |
-| Attendance Rate | Q1 |
-| Cancellation Rate | Q1, Q3 |
-| Reminder Effectiveness | Q4 |
-| Repeat No-Show Rate | Q2, Q5 |
+**Key business insights:**
 
-Full definitions and justification in the Analysis Document, Section 10.
+- Booking lead time and prior no-show history remain the two strongest, and largely independent, drivers.
+- Cancellations behave differently from no-shows (flat ~5% rate vs. lead time) — validates treating them separately.
+- Reminders help modestly; SMS is the best channel, but reminders alone won't fix a 48.5% no-show rate.
+- Waiting time and distance to clinic remain weak standalone predictors.
 
-## Known open items going into Week 5
+## Known open items going into Week 6
 
-- Move from associative findings (Week 4) to significance-tested findings (chi-square /
-  logistic regression).
-- Decide and document a missing-data handling rule for `distance_to_clinic_km` and
-  `waiting_time_minutes` before any calculation or modelling uses them.
-- Confirm the 737 Sunday-dated appointments against real clinic operating-hours assumptions
-  before using them in any hours-based segmentation.
-- First KPI calculation pass, now that identification and justification are complete.
-- Coordinate with the Data Science track on shared variable definitions for the no-show
-  prediction model.
-
+- Move from associative findings to statistically significance-tested findings (chi-square / logistic regression).
+- Test further variable interactions beyond lead time × prior no-shows.
+- Resolve carried-forward Week 4 items: Sunday-appointment operating-hours question, and a documented missing-data handling rule for distance/waiting time.
+- Translate business insights into a stakeholder-ready recommendation with estimated impact.
 

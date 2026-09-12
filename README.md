@@ -37,8 +37,6 @@ HealthConnect_Project/week6
 │   ├── original_scripts/                                       Original standalone scripts (statistical testing
 │   │   ├── HealthConnect_Week6_Advanced_Analytics.py             logic) that Week 6's notebook is built from and
 │   │   └── Booking_lead_time.py                                  extends with additional segment tests
-│   ├── build_notebook.py / build_week5_notebook.py / build_week6_notebook.py   Notebook build scripts
-│   └── preview*.html                                           HTML exports of each executed notebook
 ├── docs/
 │   ├── HealthConnect_Week6_Advanced_Analytics_Report.docx/.pdf Week 6 main output: integration readiness, stat
 │   │                                                             validation, new segment tests, interaction models,

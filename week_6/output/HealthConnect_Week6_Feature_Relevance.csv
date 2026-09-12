@@ -1,0 +1,7 @@
+feature,test,p_value,effect_size_cramers_v,recommendation
+booking_lead_days,chi-square,<0.001,0.1967,"Include — strongest, most independent signal"
+previous_no_shows,chi-square,<0.001,0.0889,"Include — confirmed significant, smaller effect than lead time"
+reminder_sent,chi-square,0.0061,0.0452,Include — significant but weakest of the three; low standalone predictive power
+reminder_channel,chi-square,0.0062,0.0425,"Consider including as categorical — SMS effect confirmed, not noise"
+appointment_type,chi-square,0.1042,0.0324,Exclude / low priority — not statistically significant
+reminder_binary x previous_no_shows (interaction),logistic interaction,0.1432,,Do NOT engineer as a feature yet — not statistically supported

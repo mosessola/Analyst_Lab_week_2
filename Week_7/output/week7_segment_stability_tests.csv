@@ -1,0 +1,16 @@
+segment,n,p,cramers_v,holds
+gender = Female,2358,0.0,0.2862,True
+gender = Male,2274,0.0,0.2882,True
+gender = Prefer not to say,105,0.0587,0.2944,False
+appointment_type = Diagnostic Test,567,0.0,0.3029,True
+appointment_type = Follow-up,1344,0.0,0.3122,True
+appointment_type = General Consultation,1980,0.0,0.2747,True
+appointment_type = Specialist Consultation,846,0.0,0.273,True
+reminder_sent = No,1285,0.0,0.3063,True
+reminder_sent = Yes,3452,0.0,0.2788,True
+age_group = 18-24,540,0.0001,0.2148,True
+age_group = 25-34,750,0.0,0.3203,True
+age_group = 35-44,770,0.0,0.3033,True
+age_group = 45-54,746,0.0,0.2686,True
+age_group = 55-64,766,0.0,0.3162,True
+age_group = 65+,1165,0.0,0.2944,True

@@ -1,0 +1,6 @@
+feature,published_p,published_V,rerun_W6_p,rerun_W6_V,corrected_p,corrected_V,reproduces,verdict_flips,corrected_p_holm,sig_after_holm
+lead_time_group,0.0,0.1967,0.0,0.1967,0.0,0.2853,True,False,0.0,True
+previous_no_show_group,0.0,0.0889,0.0,0.0889,0.0,0.1218,True,False,0.0,True
+reminder_sent,0.0061,0.0452,0.0061,0.0452,0.0038,0.042,True,False,0.0077,True
+channel_group,0.0062,0.0425,0.0062,0.0425,0.0019,0.0562,True,False,0.0056,True
+appointment_type,0.1042,0.0324,0.1042,0.0324,0.038,0.0422,True,True,0.038,True

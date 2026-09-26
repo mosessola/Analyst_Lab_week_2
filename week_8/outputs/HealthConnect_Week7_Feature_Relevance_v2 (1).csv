@@ -1,0 +1,7 @@
+feature,test,p_value,effect_size_cramers_v,w6_effect_size,change_from_w6,recommendation
+booking_lead_days,chi-square (binary outcome),<0.001,0.2853,0.1967,Effect size revised upward (W6 diluted by 3-level outcome),INCLUDE — strongest and most stable signal; validated in every segment tested
+previous_no_shows,chi-square (binary outcome),<0.001,0.1218,0.0889,Effect size revised upward; ranking vs lead time unchanged,INCLUDE — confirmed independent signal in multivariate model
+reminder_sent,chi-square + adjusted logistic,0.0038,0.042,0.0452,Newly confirmed NOT confounded by lead time (adjusted OR=0.810),INCLUDE — small but genuine and independent effect
+reminder_channel,chi-square (binary outcome),0.0019,0.0562,0.0425,Still significant; confidence intervals overlap across channels,OPTIONAL categorical — do not rely on the SMS>Email>WhatsApp ordering
+appointment_type,chi-square + likelihood-ratio test,0.0380,0.0422,0.0324,"CORRECTION — W6 reported p=0.1042 ""not statistically significant"". Correct binary test gives p=0.0380; LR test confirms joint signal (p=0.0325). The W6 exclusion instruction was wrong.","RECLASSIFY to OPTIONAL / LOW PRIORITY (not ""unsupported"") — real but negligible: pseudo-R2 gain 0.0013, no single type significant (all level p>0.19). Safe to include if cheap; do not build policy on it."
+reminder_binary x previous_no_shows (interaction),logistic interaction,0.1998,,,Re-tested on corrected base; conclusion unchanged,DO NOT ENGINEER — still not statistically supported

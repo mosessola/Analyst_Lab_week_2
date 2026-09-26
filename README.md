@@ -1,94 +1,86 @@
-# HealthConnect Clinic — Week 7: Analytical Testing, KPI Validation & Dashboard Refinement
+# HealthConnect Clinic — Week 8: Final Integration, Presentation & Showcase
 
 **Data Analytics Track · AnalystLab Africa Experience Lab · Moses Oluwatosin · September 2026**
 
-Week 7 tests the Week 6 analytical outputs rather than extending them. The short version: every
-Week 6 number reproduced exactly, but the tests behind them were specified against the wrong
-outcome variable. Correcting that changed every published effect size and reversed one
-recommendation that had already been delivered to the Data Science track.
+Week 8 closes out the Data Analytics track's contribution to HealthConnect: final KPIs, a
+decision-support dashboard whose statistics can no longer drift from the underlying computation,
+a corrected artefact confirmed as integrated by Data Science, and the presentation materials for
+the individual video submission.
 
 ---
 
-## Headline result
+## Final headline result
 
-Week 6 ran its chi-square tests as `crosstab(feature, appointment_outcome)`, where
-`appointment_outcome` has three levels (Attended / Cancelled / No-Show). Two consequences:
+Booking lead time is HealthConnect's strongest, most stable, most actionable predictor of a missed
+appointment — confirmed at Cramér's V = 0.285 (p < 0.001), holding in 14 of the 15 patient segments
+tested. No-show rate rises from 29.7% (booked within a week) to 71.6% (booked 46–60 days out).
 
-1. `min(shape) - 1 = 2`, so **every Cramér's V was divided by √2**.
-2. Each test asked *"is this feature associated with the three-way outcome?"* rather than
-   *"...with no-shows?"*
+Two further confirmed, independent drivers: prior no-show history (V = 0.122) and reminders sent
+(adjusted OR = 0.810, surviving a lead-time confounding challenge). Appointment type is
+statistically detectable but practically negligible, and the reminder × history interaction remains
+unsupported.
 
-| Feature | Week 6 p | Week 6 V | Corrected p | Corrected V |
-|---|---|---|---|---|
-| Booking lead time | <0.001 | 0.1967 | <0.001 | **0.2853** |
-| Prior no-show history | <0.001 | 0.0889 | <0.001 | **0.1218** |
-| Reminder channel | 0.0062 | 0.0425 | 0.0019 | **0.0562** |
-| Reminder sent | 0.0061 | 0.0452 | 0.0038 | 0.0420 |
-| Appointment type | 0.1042 | 0.0324 | **0.0380** | 0.0422 |
-
-The **relative ranking is unchanged**, so the Week 6 prioritisation advice survives. But
-`appointment_type` flips verdict, and Week 6 had already told Data Science to exclude it
-*because it was not statistically significant*.
+The project-level story: a Week 6 test specification error was caught in Week 7, corrected, and
+confirmed as propagated to the dependent track (Data Science) before this final submission.
 
 ---
 
-## What was tested
+## What's in this package
 
-| ID | Component | Result |
-|---|---|---|
-| T1 | Dataset integrity (7 checks) | PASS — zero violations |
-| T2 | Published KPIs | PASS with a denominator issue (cancellations in the base) |
-| T3 | All five significance tests | **FAIL** — method defect (HC-W7-01) |
-| T4 | The appointment_type exclusion | **FAIL** — rationale invalid (HC-W7-02) |
-| T5 | Reminder effect vs lead-time confounding | PASS — effect survives, adjusted OR 0.810 |
-| T6 | Reminder × prior-history interaction | PASS — conclusion upheld (p 0.143 → 0.200) |
-| T7 | Lead-time stability across 15 segments | PASS — holds in 14 of 15 |
-| T8 | Week 6 dashboard | **FAIL** — 4 defects (HC-W7-03, HC-W7-04) |
-
-Full field-by-field record: [`outputs/week7_testing_validation_record.csv`](outputs/week7_testing_validation_record.csv)
+| File | Purpose |
+|---|---|
+| `docs/HealthConnect_Week8_Final_Analytics_Package.docx` | Full written deliverable — transition, integration readiness, final KPIs, validated findings, dashboard, business insights, recommendations, limitations, cross-track record, executive summary |
+| `docs/HealthConnect_Week8_Video_Script.docx` | Timed speaking script for the 5–10 min individual video, mapped to the six required sections and to specific slides |
+| `slides/HealthConnect_Week8_Analytics_Presentation.pptx` | 10-slide deck: problem, journey, key findings, testing rigour, cross-track collaboration, recommendations, limitations, close |
+| `outputs/week7_refined_dashboard.png` | Final validated dashboard (statistics generated live from computation, not hard-coded) |
+| `outputs/HealthConnect_Week7_Feature_Relevance_v2.csv` | Corrected cross-track artefact confirmed as integrated into Data Science's final model documentation |
 
 ---
 
-## Refinements made
+## Final Integration Readiness
 
-- All tests rebuilt on the decided-appointment base with a binary outcome and a Holm correction
-  across the five-test family.
-- `appointment_type` reclassified from *"not statistically supported"* to
-  *"optional / low priority — real but negligible"* (LR test p = 0.0325, pseudo-R² gain 0.0013,
-  no individual type significant).
-- Dashboard rebuilt: every annotation now interpolated from the live results object at render
-  time — the defect that produced stale titles cannot recur. Added Wilson 95% intervals, category
-  sample sizes, a clinic-average reference line, an explicit analysis base in the header, and
-  hatching plus a negative-verdict label on the non-significant panel.
-- Both KPI bases (48.5% all appointments / 51.2% decided appointments) now reported and labelled.
+| Requirement | Response |
+|---|---|
+| Final component | Validated no-show driver analysis + refined dashboard + corrected feature-relevance artefact |
+| Status | **READY** — reproducible, corrected, Holm-adjusted, stable across segments |
+| Depends on | None upstream |
+| Depended on by | Data Science (feature selection), Project Management (business recommendations, KPI reporting) |
+| Output needed from another track | Data Science's final model performance, to confirm the ranked features improved predictive accuracy |
+| Evidence | `week7_testing_validation_record.csv` (8 tests), `week7_issue_log.csv` (4 issues raised and closed) |
 
 ---
 
-## Cross-track contribution (HC-POD)
+## Cross-track final integration (HC-POD)
 
-**Data Science.** `HealthConnect_Week6_Feature_Relevance.csv` was reissued as
-[`HealthConnect_Week7_Feature_Relevance_v2.csv`](outputs/HealthConnect_Week7_Feature_Relevance_v2.csv)
-— a drop-in replacement with corrected statistics, a `change_from_w6` column, and an adjusted odds
-ratio for `reminder_sent` they can cite against the confounding challenge. They keep their feature
-ordering; they need to correct their stated reason for dropping `appointment_type`.
-
-**Project Management.** KPI denominator change and four new issue-log entries.
+**Data Analytics → Data Science.** The corrected `HealthConnect_Week7_Feature_Relevance_v2.csv` was
+confirmed as the version referenced in Data Science's final model documentation. Their feature
+ranking was preserved; their stated justification for deprioritising `appointment_type` was
+corrected to match the actual evidence. Both tracks now cite the same numbers for the same features.
 
 ---
 
-## Repository structure
+## Recommendations (final)
 
-```
-data/                    HealthConnect_Appointment_Data.csv        (unmodified source)
-notebooks/               HealthConnect_Week7_Testing_Refinement.ipynb
-docs/                    HealthConnect_Week7_Project_Summary.docx
-outputs/                 week7_refined_dashboard.png               (after)
-                         HealthConnect_Week7_Feature_Relevance_v2.csv
-                         week7_testing_validation_record.csv
-                         week7_issue_log.csv
-                         week7_kpi_significance_validation.csv
-                         week7_segment_stability_tests.csv
-```
+1. **High** — Lead-time-triggered follow-up for appointments booked 30+ days out.
+2. **Medium** — Flag patients with 2+ prior no-shows for lightweight proactive contact.
+3. **Medium** — Keep reminders as standard practice; don't over-read the channel ranking.
+4. **Low priority** — Skip appointment-type-specific booking policy (real but negligible effect).
+5. **Medium** — Commission a randomised reminder pilot before scaling further — all findings remain observational.
+
+---
+
+## Limitations carried into the final submission
+
+- All findings are observational, not causal.
+- Small-segment power limits confidence below roughly 150 records.
+- Effect size ceiling: even 0.285 is small-to-moderate — these features alone will not produce a
+  highly accurate predictive model.
+- A 48–51% no-show rate is implausibly high for a real clinic; results are methodologically sound
+  rather than clinically representative.
+- Sunday appointment records remain unreconciled against Knowledge Base opening hours (deliberately
+  deprioritised — day of week is not a significant predictor, p = 0.38).
+
+---
 
 ## Reproducing
 
@@ -97,22 +89,16 @@ pip install pandas numpy scipy matplotlib statsmodels
 jupyter nbconvert --execute --inplace notebooks/HealthConnect_Week7_Testing_Refinement.ipynb
 ```
 
-Every figure in this README is produced by that notebook. No value is typed by hand.
+Every figure in the final dashboard and presentation is generated by that notebook — no value in
+any deliverable is typed by hand.
 
 ---
 
-## Open before Week 8
+## Project closure
 
-1. Data Science to confirm their model notes reflect the `appointment_type` correction (HC-W7-02).
-2. Agree a single headline KPI base with Project Management.
-3. Re-validate the three confirmed predictors against the refined model output.
-4. No causal test has been run — a randomised reminder pilot is proposed for discussion (HC-W7-05).
-5. Sunday appointment records remain unreconciled against Knowledge Base opening hours (HC-W5-02),
-   deliberately deprioritised since day of week is not a significant predictor (p = 0.38).
-
-## Limitation worth stating plainly
-
-All findings are observational. Even the corrected Cramér's V of 0.285 is a small-to-moderate
-effect — lead time is the best single predictor available and still leaves most variance
-unexplained. A 48–51% no-show rate is also implausibly high for a real clinic, so these results
-are methodologically sound rather than clinically representative.
+This track's contribution across Weeks 4–8: established the initial EDA and KPIs, validated the
+strongest findings statistically, tested that validation and found a real specification error,
+corrected it, propagated the correction to a dependent track, and delivered a final dashboard built
+so that its displayed statistics cannot decouple from the underlying computation again. The clinic's
+largest actionable lever — booking lead time — is confirmed with more confidence at the end of the
+project than at any earlier stage.

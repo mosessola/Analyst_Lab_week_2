@@ -34,6 +34,7 @@ confirmed as propagated to the dependent track (Data Science) before this final 
 | `slides/HealthConnect_Week8_Analytics_Presentation.pptx` | 10-slide deck: problem, journey, key findings, testing rigour, cross-track collaboration, recommendations, limitations, close |
 | `outputs/week7_refined_dashboard.png` | Final validated dashboard (statistics generated live from computation, not hard-coded) |
 | `outputs/HealthConnect_Week7_Feature_Relevance_v2.csv` | Corrected cross-track artefact confirmed as integrated into Data Science's final model documentation |
+|HC-POD|
 
 ---
 
